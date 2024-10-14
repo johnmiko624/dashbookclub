@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dash Silvestre's Book Club</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body and Background */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #e6e9f0, #eef1f5);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      background: #2f3640;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 2.5em;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+
+    /* About Section */
+    .about {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .about h1 {
+      font-size: 3em;
+      color: #2980b9;
+      margin-bottom: 20px;
+    }
+
+    .about p {
+      font-size: 1.2em;
+      color: #555;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* Upcoming Books Section */
+    .upcoming {
+      background-color: #ecf0f1;
+      padding: 50px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .upcoming h2 {
+      font-size: 2.5em;
+      color: #27ae60;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .books {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .book {
+      background-color: white;
+      width: 30%;
+      perspective: 1000px;
+      cursor: pointer;
+      transition: transform 0.5s;
+    }
+
+    .book:hover {
+      transform: scale(1.05);
+    }
+
+    .book-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.5s;
+      transform-style: preserve-3d;
+    }
+
+    .book:hover .book-inner {
+      transform: rotateY(180deg);
+    }
+
+    .book-front,
+    .book-back {
+      position: absolute;
+      width: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-front {
+      background: white;
+    }
+
+    .book-back {
+      background-color: #27ae60;
+      color: rgb(24, 19, 19);
+      transform: rotateY(180deg);
+      padding: 20px;
+    }
+
+    .book img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .book h3 {
+      font-size: 1.5em;
+      margin: 15px 0;
+      color: #2980b9;
+    }
+
+    .book p {
+      font-size: 1em;
+      color: #728183;
+      margin-bottom: 15px;
+    }
+
+    /* Join Us Section */
+    .join {
+      background-color: #3498db;
+      padding: 50px;
+      color: rgb(18, 15, 15);
+      text-align: center;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+    }
+
+    .join h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .join p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .join button {
+      background-color: #1abc9c;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .join button:hover {
+      background-color: #16a085;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #174a91;
+      color: rgb(49, 31, 31);
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 50px;
+      font-size: 1em;
+    }
+
+    /* Floating Social Media Icons */
+    .social-icons {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      display: block;
+      background-color: #1abc9c;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 1.5em;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.2);
+      background-color: #16a085;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>Dash Silvestre's Book Club</header>
+
+  <!-- Floating Social Media Icons -->
+  <div class="social-icons">
+    <a href="#"><i class="fa fa-facebook">F</i></a>
+    <a href="#"><i class="fa fa-twitter">T</i></a>
+    <a href="#"><i class="fa fa-instagram">I</i></a>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container">
+
+    <!-- About Section -->
+    <section class="about">
+      <h1>Welcome to Dash's Book Club!</h1>
+      <p>
+        Dive into the world of books with us! Dash Silvestre's Book Club is the perfect place for book lovers to explore new titles, share thoughts, and engage in deep discussions. We meet monthly to explore new horizons through literature.
+      </p>
+    </section>
+
+    <!-- Upcoming Books Section -->
+    <section class="upcoming">
+      <h2>Upcoming Books</h2>
+      <div class="books">
+        <div class="book">
+          <div class="book-inner">
+            <div class="book-front">
+              <img src="pic1.jpg" alt="The Great Gatsby">
+              <h3>The Great Gatsby</h3>
+            </div>
+            <div class="book-back">
+              <h3>The Great Gatsby</h3>
+              <p>Join us for a classic tale of love and ambition in the Roaring Twenties.</p>
+            </div>
+          </div>
+        </div>
+        <div class="book">
+          <div class="book-inner">
+            <div class="book-front">
+              <img src="pic2.jpg" alt="1984">
+              <h3>1984</h3>
+            </div>
+            <div class="book-back">
+              <h3>1984</h3>
+              <p>A gripping dystopian novel that explores the dangers of totalitarianism.</p>
+            </div>
+          </div>
+        </div>
+        <div class="book">
+          <div class="book-inner">
+            <div class="book-front">
+              <img src="pic3.jpg" alt="To Kill a Mockingbird">
+              <h3>To Kill a Mockingbird</h3>
+            </div>
+            <div class="book-back">
+              <h3>To Kill a Mockingbird</h3>
+              <p>A timeless story of racial injustice and moral growth in the Deep South.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Join Us Section -->
+    <section class="join">
+      <h2>Join Us!</h2>
+      <p>Become a member today and start your journey into the world of literature!</p>
+      <button onclick="alert('Thank you for joining!')">Join Now</button>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2024 Dash Silvestre's Book Club. All rights reserved.
+  </footer>
+
+</body>
+</html>
+
+
+
